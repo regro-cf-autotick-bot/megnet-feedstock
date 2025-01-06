@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/megnet-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/megnet-{{ version }}.tar.gz
   sha256: 0c2de597860fa3caeefc3591f01fe48e8cc70adbda812f5b72a47c3eb6361a99
 
 build:
@@ -14,17 +14,17 @@ build:
     - meg = megnet.cli.meg:main
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
   run:
     - monty
     - numpy
     - pymatgen >=2019.10.4
-    - python >=3.6
+    - python >={{ python_min }}
     - scikit-learn
     - tensorflow
 
@@ -36,6 +36,7 @@ test:
     - meg --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://pypi.org/project/megnet/
